@@ -152,8 +152,31 @@ namespace tms
 	public:
 		p_DigitalNet(int nbits, int dim, int _p);
 		std::vector<std::vector<std::vector<int>>> get_matrix();
+		int m(void) const;
+
+		/// Returns \f$s\f$ parameter of the net
+		int s(void) const;
+
+		int base(void) const;
 
 	};
+	inline int
+		p_DigitalNet::m(void) const
+	{
+		return m_nbits;
+	}
+
+	inline int
+		p_DigitalNet::s(void) const
+	{
+		return m_dim;
+	}
+
+	inline int
+		p_DigitalNet::base(void) const
+	{
+		return p;
+	}
 }
 
 

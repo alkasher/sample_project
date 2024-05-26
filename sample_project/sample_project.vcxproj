@@ -129,7 +129,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="sample_project.cpp" />
-    <ClCompile Include="tests\tstests\util\bit_counters.cpp" />
     <ClCompile Include="tms-nets-3.0.1\source\analysis\scatter_defect.cpp" />
     <ClCompile Include="tms-nets-3.0.1\source\analysis\t.cpp" />
     <ClCompile Include="tms-nets-3.0.1\source\details\common.cpp" />

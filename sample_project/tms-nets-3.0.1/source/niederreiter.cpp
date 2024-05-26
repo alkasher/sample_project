@@ -1,6 +1,48 @@
 #include "../include/tms-nets/niederreiter.hpp"
 
 
+std::vector<int> vectorize(int p, int m_bits, int n) {
+
+	auto number_to_poly = [&](int num) -> std::vector<int> {//преобразование числа в двоичную запись, а затем из двоичной записи строится полином
+		std::vector<int> coeffs;
+
+		while (num > 0) {
+			uintmax_t remainder = num % p;
+
+			coeffs.push_back(remainder);
+			num /= p;
+		}
+		//for (auto x : coeffs) { std::cout << x << " "; }
+
+		return coeffs;
+		};
+	std::vector<int> coeffs = number_to_poly(n);
+	coeffs.resize(m_bits);
+	return coeffs;
+
+}
+
+int rnum(int p, std::vector<int> v) {
+	int sum = 0;
+	for (int k = 0; k < v.size(); ++k) {
+		sum += v[v.size() - k - 1] * pow(p, k);
+	}
+	return sum;
+}
+
+
+std::vector<int> matrix_vector(std::vector<std::vector<int>> matrix, std::vector<int> vec, int p) {
+	int m = vec.size();
+	std::vector<int> res(vec.size());
+	for (int i = 0; i < m; ++i) {
+		for (int k = 0; k < m; ++k) {
+			res[i] += matrix[i][k] * vec[k];
+		}
+		res[i] %= p;
+	}
+	return res;
+}
+
 namespace tms
 {
 	
@@ -298,5 +340,21 @@ namespace tms
 			throw std::logic_error("\nWrong net's parameters");
 		}
 	}
+
+	std::vector<Point> p_Niederreiter::create_net(){
+		int m = this->m();
+		int s = this->s();
+		int p = this->base();
+
+		std::vector<Point> vect(pow(p, m), Point(s));
+		std::vector<std::vector<std::vector<int>>> matrix = this->get_matrix();
+		for (int i = 0; i < s; ++i) {
+			for (int n = 0; n < pow(p, m); ++n) {
+				vect[n][i] = static_cast<Real>(rnum(p, matrix_vector(matrix[i], vectorize(p, m, n), p))) * static_cast<Real>(std::pow(p, -m));
+			}
+
+		}
+		return vect;
+		}
 
 };

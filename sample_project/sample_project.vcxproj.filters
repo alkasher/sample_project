@@ -57,8 +57,5 @@
     <ClCompile Include="tms-nets-3.0.1\source\details\gfppoly.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="tests\tstests\util\bit_counters.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
   </ItemGroup>
 </Project>

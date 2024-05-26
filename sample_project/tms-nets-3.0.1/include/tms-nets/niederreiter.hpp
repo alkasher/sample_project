@@ -100,6 +100,7 @@ namespace tms
 		virtual void initialize_Matrix(void);
 	public:
 		p_Niederreiter(int nbits, int dim, int p);
+		std::vector<Point> create_net();
 		
 	};
 	
